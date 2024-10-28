@@ -1,5 +1,10 @@
 package lol.tgformat.module.impl.combat;
 
+import com.viaversion.viarewind.protocol.protocol1_8to1_9.Protocol1_8To1_9;
+import com.viaversion.viarewind.utils.PacketUtil;
+import com.viaversion.viaversion.api.Via;
+import com.viaversion.viaversion.api.protocol.packet.PacketWrapper;
+import com.viaversion.viaversion.api.type.Type;
 import lol.tgformat.api.event.Listener;
 import lol.tgformat.component.RotationComponent;
 import lol.tgformat.events.PreUpdateEvent;
@@ -27,7 +32,6 @@ import lol.tgformat.ui.utils.RenderUtil;
 import lol.tgformat.utils.client.LogUtil;
 import lol.tgformat.utils.enums.MovementFix;
 import lol.tgformat.utils.math.MathUtil;
-import lol.tgformat.utils.network.PacketUtil;
 import lol.tgformat.utils.player.CurrentRotationUtil;
 import lol.tgformat.utils.render.ESPColor;
 import lol.tgformat.utils.rotation.RotationUtil;
@@ -119,7 +123,13 @@ public class KillAura extends Module {
         if (isPlayerNear() && isSword()) {
             switch (autoblockmods.getMode()) {
                 case "GrimAC": {
-                    mc.thePlayer.setItemInUse(mc.thePlayer.getHeldItem(), 72000);
+                    mc.playerController.sendUseItem(mc.thePlayer, mc.theWorld, mc.thePlayer.getHeldItem());
+                    PacketWrapper use_0 = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
+                    use_0.write(Type.VAR_INT, 0);
+                    com.viaversion.viarewind.utils.PacketUtil.sendToServer(use_0, Protocol1_8To1_9.class, true, true);
+                    PacketWrapper use_1 = PacketWrapper.create(29, null, Via.getManager().getConnectionManager().getConnections().iterator().next());
+                    use_1.write(Type.VAR_INT, 1);
+                    PacketUtil.sendToServer(use_1, Protocol1_8To1_9.class, true, true);
                     break;
                 }
                 case "Off": {

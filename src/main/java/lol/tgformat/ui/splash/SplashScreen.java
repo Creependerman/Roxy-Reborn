@@ -101,6 +101,6 @@ public class SplashScreen implements IMinecraft {
         float alpha = fadeAnim == null ? 1.0f : 1.0f - fadeAnim.getOutput().floatValue();
         RenderUtil.resetColor();
         GlStateManager.color(1, 1, 1, alpha);
-        Gui.drawRect(0, 0, width, height, new Color(239, 50, 61, (int) (alpha * 255)).getRGB());
+        Gui.drawRect(0, 0, width, height, new Color(0,0,0).getRGB());
     }
 }

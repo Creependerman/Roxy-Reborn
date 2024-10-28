@@ -175,8 +175,8 @@ public class Watermark extends Module {
                 double waterwidth = tenacityFont18.getStringWidth(user) + tenacityFont18.getStringWidth(ver) + tenacityFont18.getStringWidth(time) + tenacityFont18.getStringWidth(fps);
                 GlowUtils.drawGlow(x + 4, y - 1.6f, (float) (waterwidth + FontManager.arial22.getStringWidth(CLIENTNAME) - 4), 20 + 1.6f, 12, new Color(25, 25, 25, 174));
 
-                RoundedUtils.drawRound(x, y - 3, (float) (waterwidth + tenacityFont20.getStringWidth(CLIENTNAME) + 12), 10, 9, new Color(160, 42, 42));
-                RoundedUtils.drawRound(x + 1, y + 1.6f, (float) (waterwidth + tenacityFont20.getStringWidth(CLIENTNAME) + 10), 18, 10, new Color(24,24,24,255));
+                RoundedUtils.drawRound(x + 1  , y - 3, (float) (waterwidth + tenacityFont20.getStringWidth(CLIENTNAME) + 10), 10, 5, new Color(160, 42, 42));
+                RoundedUtils.drawRound(x + 1, y + 1.6f, (float) (waterwidth + tenacityFont20.getStringWidth(CLIENTNAME) + 10), 18, 5, new Color(24,24,24,255));
                 RoundedUtils.drawRound(x + 1, y + 1.6f, (float) (waterwidth + tenacityFont20.getStringWidth(CLIENTNAME) + 10), 8.6F, 0, new Color(24,24,24,255));
 
                 tenacityFont20.drawString(CLIENTNAME, x + 4, y + 5, new Color(255,255,255).getRGB());

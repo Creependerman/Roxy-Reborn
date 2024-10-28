@@ -54,7 +54,7 @@ import static org.lwjgl.opengl.GL11.GL_VIEWPORT;
 
 @StringEncryption
 public class NameTags extends Module {
-    private final ModeSetting mode = new ModeSetting("Mode","Default","Default","Old","Shit","Rise");
+    private final ModeSetting mode = new ModeSetting("Mode","Default","Default","Old","Naven","Shit","Rise");
     private final Map<Entity, Vector4f> entityPosition = new HashMap<>();
     private final Frustum frustum = new Frustum();
     private final FloatBuffer windPos = BufferUtils.createFloatBuffer(4);
@@ -176,6 +176,27 @@ public class NameTags extends Module {
                     FontUtil.tenacityFont16.drawStringWithShadow(text.toString(), middle, (float)((double)y2 - (fontHeight + 5.0)) + 1.0f, -1);
                     break;
                 }
+                case "Naven":{
+                    float x2 = pos.getX();
+                    float y2 = pos.getY();
+                    double fontScale = 0.8;
+                    float middle = x2 + (right - x2) / 2.0f;
+                    double fontHeight = (double)arial20.getHeight() * fontScale;
+                    float textWidth = arial20.getStringWidth(text.toString());
+                    middle = (float)((double)middle - (double)textWidth * fontScale / 2.0);
+                    GlStateManager.pushMatrix();
+                    GlStateManager.translate(middle, (double)y2 - (fontHeight + 2.0), 0.0);
+                    GlStateManager.scale(fontScale, fontScale, 1.0);
+                    GlStateManager.translate(-middle, -((double)y2 - (fontHeight + 2.0)), 0.0);
+                    RoundedUtils.drawRound(middle - 3.0f - 2.0f, (float)((double)y2 - (fontHeight + 7.0)) - 3.0f, textWidth + 6.0f + 6.0f, 1.0f + 3f, 2.0f, new Color(160, 42, 42));
+                    RoundedUtils.drawRound(middle - 3.0f - 2.0f, (float)((double)y2 - (fontHeight + 7.0)), textWidth + 6.0f + 6.0f, (float)(fontHeight / fontScale) -5, 0f, new Color(24, 24, 24, 255));
+                    RoundedUtils.drawRound(middle - 3.0f - 2.0f, (float)((double)y2 - (fontHeight + 7.0)), textWidth + 6.0f + 6.0f, (float)(fontHeight / fontScale), 2.0f, new Color(24, 24, 24, 255));
+                    RenderUtils.resetColor();
+                    GlStateManager.popMatrix();
+                    arial16.drawStringWithShadow(text.toString(), middle, (float)((double)y2 - (fontHeight + 5.0)) + 1.0f, -1);
+                    break;
+                }
+
                 case "Shit":{
                     String Health = String.format("%.0f", renderingEntity.getHealth());
                     String Distance = String.format("%.1f",mc.thePlayer.getClosestDistanceToEntity(renderingEntity));

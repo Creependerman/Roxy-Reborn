@@ -16,6 +16,7 @@ import lol.tgformat.ui.font.Pair;
 import lol.tgformat.ui.utils.Animation;
 import lol.tgformat.ui.utils.Direction;
 import lol.tgformat.ui.utils.RenderUtil;
+import lol.tgformat.utils.render.GlowUtils;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.StringUtils;
@@ -38,6 +39,7 @@ public class ArrayListMod extends Module {
             new BooleanSetting("Bold", false),
             new BooleanSetting("Small Font", false), test);
     public final NumberSetting height = new NumberSetting("Height", 11, 20, 9, .5f);
+    public final BooleanSetting Glow = new BooleanSetting("Glow",false);
     private final ModeSetting animation = new ModeSetting("Animation", "Scale in", "Move in", "Scale in");
     private final NumberSetting colorIndex = new NumberSetting("Color Seperation", 20, 100, 5, 1);
     private final NumberSetting colorSpeed = new NumberSetting("Color Speed", 15, 30, 2, 1);
@@ -136,10 +138,20 @@ public class ArrayListMod extends Module {
             Color textcolor = ColorUtil.interpolateColorsBackAndForth(colorSpeed.getValue().intValue(), index, colors.getFirst(), colors.getSecond(), false);
 
             if (background.getConfigValue()) {
-                float offset = 5;
-                Color color = backgroundColor.getConfigValue() ? textcolor : new Color(10, 10, 10);
-                Gui.drawRect2(x - 2, y, font.getStringWidth(displayText) + offset, heightVal,
-                        ColorUtil.applyOpacity(color, backgroundAlpha.getValue().floatValue() * alphaAnimation).getRGB());
+                if (Glow.isEnabled()){
+                    float offset = 5;
+                    Color color = backgroundColor.getConfigValue() ? textcolor : new Color(10, 10, 10);
+                    GlowUtils.drawGlow(x - 2, y, font.getStringWidth(displayText) + offset, heightVal, 0,new Color(0,0,0,255));
+                    Gui.drawRect2(x - 2, y, font.getStringWidth(displayText) + offset, heightVal,
+                            ColorUtil.applyOpacity(color, backgroundAlpha.getValue().floatValue() * alphaAnimation).getRGB());
+
+                }else {
+                    float offset = 5;
+                    Color color = backgroundColor.getConfigValue() ? textcolor : new Color(10, 10, 10);
+                    Gui.drawRect2(x - 2, y, font.getStringWidth(displayText) + offset, heightVal,
+                            ColorUtil.applyOpacity(color, backgroundAlpha.getValue().floatValue() * alphaAnimation).getRGB());
+
+                }
             }
 
             float offset = 0;

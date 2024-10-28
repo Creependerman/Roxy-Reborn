@@ -6,11 +6,13 @@ import lol.tgformat.events.motion.PreMotionEvent;
 import lol.tgformat.events.packet.PacketSendEvent;
 import lol.tgformat.events.render.Render2DEvent;
 import lol.tgformat.module.Module;
+import lol.tgformat.module.ModuleManager;
 import lol.tgformat.module.ModuleType;
 import lol.tgformat.module.values.impl.BooleanSetting;
 import lol.tgformat.module.values.impl.NumberSetting;
 import lol.tgformat.utils.math.MathUtil;
 import lol.tgformat.utils.player.InventoryUtil;
+import lol.tgformat.utils.render.GlowUtils;
 import lol.tgformat.utils.vector.Vector3d;
 import lol.tgformat.utils.vector.Vector4d;
 import net.minecraft.block.Block;
@@ -39,16 +41,15 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.glu.GLU;
 import tech.skidonion.obfuscator.annotations.Renamer;
-import tech.skidonion.obfuscator.annotations.StringEncryption;
 
 import java.awt.*;
 import java.util.List;
 import java.util.Optional;
-@Renamer
-@StringEncryption
+
 public class Stealer extends Module {
     private final NumberSetting delay = new NumberSetting("Delay", 0.0, 1000.0, 0.0, 10.0);
     public BooleanSetting silent = new BooleanSetting("Silent", true);
+    public BooleanSetting glow = new BooleanSetting("HUD Glow",true);
     public final BooleanSetting chestView = new BooleanSetting("Stealing View", false);
     private final BooleanSetting autodis = new BooleanSetting("AutoDisable", true);
 
@@ -86,13 +87,21 @@ public class Stealer extends Module {
 
                 float roundX = (float) projection.x - (164 / 2F);
                 float roundY = (float) projection.y / 1.5F;
-
+                final Stealer stealer = ModuleManager.getModule(Stealer.class);
                 GlStateManager.pushMatrix();
                 GlStateManager.translate(roundX + 82, roundY + 30, 0);
                 GlStateManager.translate(-(roundX + 82), -(roundY + 30), 0);
+                if (stealer.glow.isEnabled()){
+                    GlowUtils.drawGlow(roundX, roundY- 4.6f, 164, 60 + 4.6f, 4,  new Color(24,24,24,255));
+                    RoundedUtils.drawRound(roundX, roundY - 4.6f, 164, 20, 4,  new Color(160, 42, 42));
+                    RoundedUtils.drawRound(roundX, roundY, 164, 60, 4,  new Color(24,24,24,255));
+                    RoundedUtils.drawRound(roundX, roundY, 164, 20, 0,  new Color(24,24,24,255));
 
-                RoundedUtils.drawRound(roundX, roundY, 164, 60, 3, new Color(0, 0, 0, 120));
-
+                }else {
+                    RoundedUtils.drawRound(roundX, roundY - 4.6f, 164, 20, 4, new Color(160, 42, 42));
+                    RoundedUtils.drawRound(roundX, roundY, 164, 60, 4, new Color(24, 24, 24, 255));
+                    RoundedUtils.drawRound(roundX, roundY, 164, 20, 0, new Color(24, 24, 24, 255));
+                }
                 double startX = roundX + 5;
                 double startY = roundY + 5;
 

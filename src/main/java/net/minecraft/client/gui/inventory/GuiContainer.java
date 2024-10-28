@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.Set;
 import lol.tgformat.module.ModuleManager;
 import lol.tgformat.module.impl.player.Stealer;
+import lol.tgformat.ui.clickgui.Utils;
 import lol.tgformat.ui.font.FontUtil;
+import lol.tgformat.utils.render.GlowUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -122,9 +124,9 @@ public abstract class GuiContainer extends GuiScreen
                         int startX = sr.getScaledWidth() / 2 - 68;
                         int startY = sr.getScaledHeight() / 2 - 50;
                         String text = "Stealing...";
-                        FontUtil.tenacityFont18.drawString(text, startX + 10 + 60 - FontUtil.tenacityFont18.getStringWidth(text) / 2, startY + 20, new Color(225, 225, 225, 100).getRGB());
-                        RoundedUtils.drawGradientRound(startX + 10, (float) (startY + 7.5), 120.0f, 2.0f, 3.0f, new Color(0, 0, 0, 200), new Color(0, 0, 0, 150), new Color(0, 0, 0, 150), new Color(0, 0, 0, 150));
-                        RoundedUtils.drawGradientRound(startX + 10, (float) (startY + 7.5), Math.min(target, 120.0f), 2.0f, 3.0f,new Color(59, 89, 241, 226), new Color(59, 235, 241, 208), new Color(59, 241, 220, 255), new Color(111, 241, 59, 216));
+                        RenderUtil.drawLoadingCircle(sr.getScaledWidth() / 2, sr.getScaledHeight() / 2 + 97);
+                        Utils.tenacityFont18.drawString(text, sr.getScaledWidth() / 2 - 15, sr.getScaledHeight() / 2 + 100 + 10, new Color(255, 255, 255).getRGB());
+
                     }
                     return;
                 }

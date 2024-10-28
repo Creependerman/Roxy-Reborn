@@ -46,8 +46,8 @@ public enum Client {
     instance;
 
     private final String name = "Roxy";
-    private final String date = "1027";
-    private final String version = "1.6";
+    private final String date = "1028";
+    private final String version = "1.7";
     private ModuleManager moduleManager;
     private ConfigManager configManager;
     private VideoComponent videoComponent;
